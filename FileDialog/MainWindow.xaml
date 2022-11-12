@@ -1,0 +1,52 @@
+﻿<Window x:Class="FileDialog.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FileDialog"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem x:Name="MenuNew" Header="_New"/>
+                <MenuItem x:Name="MenuOpen" Header="_Open"/>
+                <MenuItem x:Name="MenuSave" Header="_Save"/>
+                <Separator />
+                <MenuItem x:Name="MenuExit" Header="_Exit"/>
+            </MenuItem>
+            <MenuItem Header="_Edit">
+
+            </MenuItem>
+        </Menu>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <DockPanel Grid.Row="0" Margin="5" KeyDown="DockPanel_KeyDown">
+                <WrapPanel DockPanel.Dock="Top" Margin="0,0,0,10">
+                    <Button Width="75" HorizontalAlignment="Left" Name="btnAddFile" Click="btnAddFile_Click">Open Item</Button>
+                </WrapPanel>
+                <WrapPanel DockPanel.Dock="Top" Margin="0,0,0,10">
+                    <Button Width="75" HorizontalAlignment="Left" Name="btnfavortie" Click="btnfavortie_Click">Add</Button>
+                </WrapPanel>
+                <WrapPanel DockPanel.Dock="Top" Margin="0,0,0,10">
+                    <Button x:Name="btnClear" Width="75" HorizontalAlignment="Left">Clear</Button>
+                </WrapPanel>
+            </DockPanel>
+            <Grid Grid.Row="0" Grid.Column="1" Margin="10">
+                <TextBox x:Name="path" Height="25" TextChanged="path_TextChanged" VerticalAlignment="Top"/>
+                <ComboBox x:Name="myList" SelectedIndex="0" SelectionChanged="myList_SelectionChanged" Height="25"/>
+            </Grid>
+            <TextBox Grid.Row="1" Margin="5" Grid.ColumnSpan="2" Name="txtEditor" TextChanged="txtEditor_TextChanged"
+                     TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" AcceptsReturn="True"/>
+        </Grid>
+    </DockPanel>
+</Window>
+
