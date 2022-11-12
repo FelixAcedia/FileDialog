@@ -50,6 +50,7 @@ namespace FileDialog
             MenuNew.Click += (s, e) => New(); //Click EventHandler - Menupoint "New". C.: Start method "New();", No parameteres
             MenuOpen.Click += (s, e) => _ = openFileDialog.ShowDialog() == true ? NewFileSelected(true, false, openFileDialog.FileName) : false;
             //Click EventHandler - Menupoint "Open". C.: Select File with "OpenFileDialog". If file selected: start method "NewFileSelected
+            MenuDelete.Click += (s, e) => Delete();
             MenuSave.Click += (s, e) => myList.Items.Save(); //Click EventHandler - Menupoint "Save".
             MenuExit.Click += (s, e) => Close(); //Click EventHandler - Menupoint "Exit.
             btnClear.Click += (s, e) => myList.Items.Clear();  //Click EventHandler - Button "Clear".
@@ -65,16 +66,12 @@ namespace FileDialog
             {
                 myList.Items.Add(myList.SelectedItem = eingabe.Ausgabe);
             }
-            /*
-            try
-            {
-                myList.Items.Add(FolderBrowserDialog.ShowDialog());
-            }
-            catch (Exception exe)
-            {
-                MessageBox.Show(exe.Message);
-            }
-            */
+        }
+        private void Delete()
+        {
+            if (path.Text.FileExists() == true)
+                myList.Items.Remove(path.Text);
+            File.Delete(path.Text);
         }
 
         /// <summary>
@@ -103,8 +100,12 @@ namespace FileDialog
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void path_TextChanged(object sender, TextChangedEventArgs e) =>
+        private void path_TextChanged(object sender, TextChangedEventArgs e)
+        {
             txtEditor.Text = path.Text.FileExists() ? File.ReadAllText(path.Text) : String.Empty;
+            MenuDelete.IsEnabled = File.Exists(path.Text);
+            FileExist = myList.Items.Contains(path.Text);
+        }
         /// <summary>
         /// Overwrite content from path.Text(.txt) by change.
         /// </summary>
@@ -124,7 +125,6 @@ namespace FileDialog
         {
             if (myList.SelectedItem != null)
                 NewFileSelected(true, false, myList.SelectedItem.ToString());
-            FileExist = myList.Items.Contains(path.Text);
         }
         /// <summary>
         /// Add selected file from OpenFileDialog in myList, when myList doesn't contain item already.
