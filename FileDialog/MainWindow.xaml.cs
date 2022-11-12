@@ -18,7 +18,6 @@ namespace FileDialog
     public partial class MainWindow : Window
     {
         OpenFileDialog openFileDialog = new OpenFileDialog();
-        FolderBrowserDialog FolderBrowserDialog = new FolderBrowserDialog();
         /// <summary>
         /// Represent the last pressed Key.
         /// </summary>

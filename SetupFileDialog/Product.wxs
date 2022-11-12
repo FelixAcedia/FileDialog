@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"><?define FileDialog_TargetDir=$(var.FileDialog.TargetDir)?>
+	<Product Id="*" Name="SetupFileDialog" Language="1033" Version="1.0.0.0" Manufacturer="Alcor" UpgradeCode="755be6aa-2a8c-4017-a95e-455567beced8">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate />
+
+		<Feature Id="ProductFeature" Title="SetupFileDialog" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+		</Feature>
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLFOLDER" Name="SetupFileDialog" />
+			</Directory>
+		</Directory>
+	</Fragment>
+
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+			<!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
+			<!-- <Component Id="ProductComponent"> -->
+				<!-- TODO: Insert files, registry keys, and other resources here. -->
+			<!-- </Component> -->
+			<Component Id="FileDialog.dll" Guid="de662858-b043-4ca1-a691-1657fc8a26a2">
+			  <File Id="FileDialog.dll" Name="FileDialog.dll" Source="$(var.FileDialog_TargetDir)FileDialog.dll" />
+			</Component>
+			<Component Id="FileDialog.pdb" Guid="1bc4fb10-b1cd-4d8b-bb66-8ac5b18e2dcc">
+			  <File Id="FileDialog.pdb" Name="FileDialog.pdb" Source="$(var.FileDialog_TargetDir)FileDialog.pdb" />
+			</Component>
+			<Component Id="FileDialog.runtimeconfig.json" Guid="53d49500-3493-4696-9b6b-3fcec071227d">
+			  <File Id="FileDialog.runtimeconfig.json" Name="FileDialog.runtimeconfig.json" Source="$(var.FileDialog_TargetDir)FileDialog.runtimeconfig.json" />
+			</Component>
+		</ComponentGroup>
+	</Fragment>
+</Wix>
